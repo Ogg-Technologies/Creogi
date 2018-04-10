@@ -3,6 +3,7 @@ package com.oggtechnologies.creogi.entities;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.oggtechnologies.creogi.GlobalGameData;
 import com.oggtechnologies.creogi.TileMap;
 
 public abstract class Entity {
@@ -23,9 +24,9 @@ public abstract class Entity {
         this.height = height;
     }
 
-    public void update(TileMap tileMap){
-        moveYWithCollisionDetection(tileMap);
-        moveXWithCollisionDetection(tileMap);
+    public void update(){
+        moveYWithCollisionDetection(GlobalGameData.getTileMap());
+        moveXWithCollisionDetection(GlobalGameData.getTileMap());
 
         yVel -= GRAVITY;
         if (yVel>0.4){

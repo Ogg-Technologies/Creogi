@@ -64,6 +64,7 @@ public class MainActivity extends Activity {
             paint = new Paint();
             entities.add(player);
             GlobalGameData.setPlayer(player);
+            GlobalGameData.setTileMap(tileMap);
             UserOptions.setZoomLevel(2);
 
             playing = true;
@@ -107,7 +108,7 @@ public class MainActivity extends Activity {
 
         public void update() {
             for (Entity e : entities) {
-                e.update(tileMap);
+                e.update();
             }
 
         }
@@ -168,7 +169,7 @@ public class MainActivity extends Activity {
             } else {
                 // No inventory or menu is open, just the main game.
                 // Touch events control the player
-                player.onTouch(motionEvent, tileMap);
+                player.onTouch(motionEvent);
             }
             return true;
         }

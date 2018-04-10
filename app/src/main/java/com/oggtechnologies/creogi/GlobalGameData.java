@@ -5,6 +5,15 @@ import com.oggtechnologies.creogi.entities.Player;
 public class GlobalGameData {
     private static final float baseTileSize = 50;
     private static Player player;
+    private static TileMap tileMap;
+
+    public static TileMap getTileMap() {
+        return tileMap;
+    }
+
+    public static void setTileMap(TileMap tileMap) {
+        GlobalGameData.tileMap = tileMap;
+    }
 
     public static void setPlayer(Player player) {
         GlobalGameData.player = player;

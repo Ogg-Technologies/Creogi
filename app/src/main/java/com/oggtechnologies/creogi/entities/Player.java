@@ -54,7 +54,7 @@ public class Player extends Entity {
      * Called on touch event if no inventory or menu is opened
      * Handles all types of controlling the player based on where the screen was pressed
      */
-    public void onTouch(MotionEvent motionEvent, TileMap tileMap){
+    public void onTouch(MotionEvent motionEvent){
         // The id of the finger that had the event
         int fingerIndex = motionEvent.getActionIndex();
         int fingerID = motionEvent.getPointerId(fingerIndex);
@@ -86,7 +86,7 @@ public class Player extends Entity {
                         System.out.println("mapx: " + mapX);
                         System.out.println("screenx : " + screenX);
                         System.out.println("playerscreenx: " + MainActivity.getGameViewWidth()/2);
-                        tileMap.addTile(new Stone((int) Math.floor(mapX), (int) Math.floor(mapY)));
+                        GlobalGameData.getTileMap().addTile(new Stone((int) Math.floor(mapX), (int) Math.floor(mapY)));
                         break;
                 }
                 break;
