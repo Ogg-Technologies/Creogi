@@ -16,13 +16,11 @@ import com.oggtechnologies.creogi.tiles.Stone;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Player extends Entity {
+public class Player extends Mob {
 
     GUI gui;
     Inventory inventory = new Inventory(15);
 
-    float JUMPVEL = 0.2f;
-    float SPEED = 0.1f;
     Map<Integer, String> fingersDown = new HashMap<Integer, String>();
 
     public Player(float x, float y) {
@@ -75,7 +73,7 @@ public class Player extends Entity {
                         xVel = SPEED;
                         break;
                     case "jump":
-                        yVel = JUMPVEL;
+                        jump();
                         break;
                     case "use":
                         break;
