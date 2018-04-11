@@ -32,6 +32,7 @@ public class Player extends Entity {
         gui.addButton("right", 0.12f, 0.835f, 0.1f, 0.15f);
         gui.addButton("jump", 0.23f, 0.835f, 0.65f, 0.15f);
         gui.addButton("use", 0.89f, 0.835f, 0.1f, 0.15f);
+        gui.addImageButton("inv", 0.9f, 0.01f, 0.09f, 0.09f, "tile_grass");
 
         inventory.tryPickUpItem(new ItemTile(new Stone(0, 0)));
     }

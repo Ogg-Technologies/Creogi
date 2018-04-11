@@ -21,6 +21,10 @@ public class GUI {
         buttons.add(new Button(action, left, top, width, height));
     }
 
+    public void addImageButton(String action, float left, float top, float width, float height, String texture){
+        buttons.add(new ImageButton(action, left, top, width, height, texture));
+    }
+
     public void draw(Canvas canvas, Paint paint){
         paint.setColor(Color.argb(150, 50, 50, 50));
         for (Button b : buttons){
@@ -35,6 +39,30 @@ public class GUI {
             }
         }
         return "";
+    }
+
+    private class ItemSlotButton extends Button {
+
+        /**
+         * Creates a button that uses the image of the item it contains
+         */
+        private ItemSlotButton(String action, float left, float top, float width, float height) {
+            super(action, left, top, width, height);
+        }
+
+    }
+
+    private class ImageButton extends Button {
+        String texture;
+        public ImageButton(String action, float left, float top, float width, float height, String texture) {
+            super(action, left, top, width, height);
+            this.texture = texture;
+        }
+
+        @Override
+        void draw(Canvas canvas, Paint paint) {
+            canvas.drawBitmap(Textures.getTexture(texture, getPixelWidth()), getLeftPixel(), getTopPixel(), paint);
+        }
     }
 
     private class Button{
@@ -81,13 +109,28 @@ public class GUI {
             return false;
         }
 
-        private void draw(Canvas canvas, Paint paint){
-            float leftPixel = left*MainActivity.getGameViewWidth();
-            float topPixel = top*MainActivity.getGameViewHeight();
-            float rightPixel = (left+width)*MainActivity.getGameViewWidth();
-            float bottomPixel = (top+height)*MainActivity.getGameViewHeight();
+        void draw(Canvas canvas, Paint paint){
+            float leftPixel = getLeftPixel();
+            float topPixel = getTopPixel();
+            float rightPixel = leftPixel+getPixelWidth();
+            float bottomPixel = topPixel*getPixelHeight();
             canvas.drawRect(leftPixel, topPixel, rightPixel, bottomPixel, paint);
+        }
 
+        float getTopPixel() {
+            return top* MainActivity.getGameViewHeight();
+        }
+
+        float getLeftPixel() {
+            return left* MainActivity.getGameViewWidth();
+        }
+
+        float getPixelWidth() {
+            return width* MainActivity.getGameViewWidth();
+        }
+
+        float getPixelHeight() {
+            return height* MainActivity.getGameViewHeight();
         }
 
     }
