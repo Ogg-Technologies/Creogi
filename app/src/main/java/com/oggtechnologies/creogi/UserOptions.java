@@ -3,8 +3,8 @@ package com.oggtechnologies.creogi;
 
 
 public class UserOptions {
-    private static float zoomLevel = 1;
-    private static float tileScale = 1;
+    private static float zoomLevel = 0;
+    private static float tileScale = 10;
 
     public static float getTileScale() {
         return tileScale;

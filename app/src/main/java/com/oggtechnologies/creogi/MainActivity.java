@@ -32,7 +32,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         gameView = new GameView(this);
         setContentView(gameView);
     }
