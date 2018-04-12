@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
             entities.add(player);
             GlobalGameData.setPlayer(player);
             GlobalGameData.setTileMap(tileMap);
-            UserOptions.setZoomLevel(2);
+            UserOptions.setZoomLevel(10);
 
             playing = true;
 

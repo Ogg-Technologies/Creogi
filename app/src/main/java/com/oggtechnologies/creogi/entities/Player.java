@@ -4,12 +4,11 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 
-import com.oggtechnologies.creogi.GUI;
+import com.oggtechnologies.creogi.gui.GUI;
 import com.oggtechnologies.creogi.GlobalGameData;
 import com.oggtechnologies.creogi.Inventory;
 import com.oggtechnologies.creogi.MainActivity;
 import com.oggtechnologies.creogi.Textures;
-import com.oggtechnologies.creogi.TileMap;
 import com.oggtechnologies.creogi.items.ItemTile;
 import com.oggtechnologies.creogi.tiles.Stone;
 

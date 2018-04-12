@@ -96,13 +96,11 @@ public class Textures {
     }
 
     private static Bitmap getResizedBitmap(Bitmap bm, float newWidth) {
-        System.out.println("resizing image");
         int width = bm.getWidth();
         int height = bm.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
+        float scaleWidth = newWidth/width;
         Matrix matrix = new Matrix();
         matrix.postScale(scaleWidth, scaleWidth);
-
         Bitmap resizedBitmap = Bitmap.createBitmap(
                 bm, 0, 0, width, height, matrix, false);
         return resizedBitmap;
