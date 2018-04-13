@@ -6,6 +6,8 @@ public class GlobalGameData {
     private static final float baseTileSize = 50;
     private static Player player;
     private static TileMap tileMap;
+    // The number of updates that have happened since the program started running
+    private static int updatesSinceStart = 0;
 
     public static TileMap getTileMap() {
         return tileMap;
@@ -50,5 +52,13 @@ public class GlobalGameData {
         float deltaPlayerMapY = deltaPlayerPixelY/getTilePixelSize();
         float mapY = deltaPlayerMapY+player.getY();
         return mapY;
+    }
+
+    public static int getUpdatesSinceStart() {
+        return updatesSinceStart;
+    }
+
+    public static void incrementUpdate(){
+        updatesSinceStart++;
     }
 }

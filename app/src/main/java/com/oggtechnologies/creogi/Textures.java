@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 
+import com.oggtechnologies.creogi.imageHandler.Image;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -71,6 +73,11 @@ public class Textures {
 
         return scaledTexture;
     }
+
+    public static Bitmap getTexture(Image image, float pixelSize){
+        return getTexture(image.getTextureName(), pixelSize);
+    }
+
 
     /**
      * Gets the current available memory

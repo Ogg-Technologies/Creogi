@@ -5,7 +5,7 @@ import android.graphics.Paint;
 
 public class Air extends Tile{
     public Air(int x, int y){
-        super(x, y, "", false);
+        super(x, y, null, false);
     }
 
     @Override

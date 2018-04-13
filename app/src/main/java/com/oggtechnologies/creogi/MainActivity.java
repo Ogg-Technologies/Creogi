@@ -85,6 +85,7 @@ public class MainActivity extends Activity {
                 //runs 60 times each second
                 while (delta >= 1) {
                     update();
+                    GlobalGameData.incrementUpdate();
                     updates++;
                     delta--;
                 }

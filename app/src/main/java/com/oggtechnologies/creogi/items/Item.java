@@ -6,22 +6,23 @@ import android.graphics.Paint;
 
 import com.oggtechnologies.creogi.Textures;
 import com.oggtechnologies.creogi.entities.Player;
+import com.oggtechnologies.creogi.imageHandler.Image;
 
 public class Item {
-    String textureName;
+    Image image;
     /**
      * This is the baseclass for every item. Other items extends this. An item is an object in an inventory
      */
-    public Item(String textureName){
-        this.textureName = textureName;
+    public Item(Image image){
+        this.image = image;
     }
 
     /**
      * Draws how this item looks in an inventory
      */
     public void draw(float right, float bottom, float pixelSize, Canvas canvas, Paint paint){
-        if (textureName != null){
-            canvas.drawBitmap(Textures.getTexture(textureName, pixelSize), right, bottom-pixelSize, paint);
+        if (image != null){
+            canvas.drawBitmap(Textures.getTexture(image, pixelSize), right, bottom-pixelSize, paint);
         } else {
             paint.setColor(Color.argb(255, 255, 0, 0));
             canvas.drawRect(right, bottom-pixelSize, right+pixelSize, bottom, paint);

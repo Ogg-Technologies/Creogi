@@ -10,7 +10,7 @@ public class ItemTile extends Item{
      * @param tile
      */
     public ItemTile(Tile tile) {
-        super(tile.getTextureName());
+        super(tile.getImage());
         this.tile = tile;
     }
 }

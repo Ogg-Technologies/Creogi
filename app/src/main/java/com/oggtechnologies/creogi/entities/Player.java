@@ -9,9 +9,12 @@ import com.oggtechnologies.creogi.GlobalGameData;
 import com.oggtechnologies.creogi.Inventory;
 import com.oggtechnologies.creogi.MainActivity;
 import com.oggtechnologies.creogi.Textures;
+import com.oggtechnologies.creogi.imageHandler.Animation;
+import com.oggtechnologies.creogi.imageHandler.StaticImage;
 import com.oggtechnologies.creogi.items.ItemTile;
 import com.oggtechnologies.creogi.tiles.Stone;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +24,8 @@ public class Player extends Mob {
     Inventory inventory = new Inventory(15);
 
     Map<Integer, String> fingersDown = new HashMap<Integer, String>();
+
+    Animation animation;
 
     public Player(float x, float y) {
         super(x, y, (float) 12/16, (float) 28/16);
@@ -32,12 +37,16 @@ public class Player extends Mob {
         gui.addImageButton("inv", 0.9f, 0.01f, 0.09f, 0.09f, "tile_grass");
 
         inventory.tryPickUpItem(new ItemTile(new Stone(0, 0)));
+
+        ArrayList<String> textures = new ArrayList<>();
+        textures.add("player");
+        animation = new Animation(textures, 10);
     }
 
     @Override
     public void draw(Canvas canvas, Paint paint) {
         canvas.drawBitmap(
-                Textures.getTexture("player", width*GlobalGameData.getTilePixelSize()),
+                Textures.getTexture(animation, width*GlobalGameData.getTilePixelSize()),
                 GlobalGameData.mapToScreenX(x-width/2),
                 GlobalGameData.mapToScreenY(y+height),
                 paint);
@@ -81,9 +90,6 @@ public class Player extends Mob {
                         //No button was pressed, the map was
                         float mapX = GlobalGameData.screenToMapX(screenX);
                         float mapY = GlobalGameData.screenToMapY(screenY);
-                        System.out.println("mapx: " + mapX);
-                        System.out.println("screenx : " + screenX);
-                        System.out.println("playerscreenx: " + MainActivity.getGameViewWidth()/2);
                         GlobalGameData.getTileMap().addTile(new Stone((int) Math.floor(mapX), (int) Math.floor(mapY)));
                         break;
                 }
