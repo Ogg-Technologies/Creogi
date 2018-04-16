@@ -2,12 +2,24 @@ package com.oggtechnologies.creogi;
 
 import com.oggtechnologies.creogi.entities.Player;
 
+import java.util.Random;
+
 public class GlobalGameData {
     private static final float baseTileSize = 50;
     private static Player player;
     private static TileMap tileMap;
+    private static Random seededRandom;
     // The number of updates that have happened since the program started running
     private static int updatesSinceStart = 0;
+
+    public static void setSeed(long seed){
+        seededRandom = new Random();
+        seededRandom.setSeed(seed);
+    }
+
+    public static Random getSeededRandom() {
+        return seededRandom;
+    }
 
     public static TileMap getTileMap() {
         return tileMap;
