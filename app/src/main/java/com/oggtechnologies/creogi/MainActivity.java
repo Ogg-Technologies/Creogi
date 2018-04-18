@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
         Boolean firstFrame = true;
         Player player = new Player(3.5f, 20);
         ArrayList<Entity> entities = new ArrayList<>();
-        TileMap tileMap = new TileMap(16, 17);
+        TileMap tileMap = new TileMap(160000, 20);
 
         // If this is not null draw the open inventory to the screen and let onclick control that
         Inventory currentOpenInventory = null;
@@ -64,6 +64,8 @@ public class MainActivity extends Activity {
             entities.add(player);
             GlobalGameData.setPlayer(player);
             GlobalGameData.setTileMap(tileMap);
+            //todo Let the user set the seed when creating the world
+            GlobalGameData.setSeed(13371337);
             UserOptions.setZoomLevel(10);
 
             playing = true;
