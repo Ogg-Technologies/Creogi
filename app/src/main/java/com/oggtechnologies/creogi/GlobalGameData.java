@@ -12,6 +12,11 @@ public class GlobalGameData {
     // The number of updates that have happened since the program started running
     private static int updatesSinceStart = 0;
 
+    public GlobalGameData() {
+        setSeed(1);
+    }
+
+
     public static void setSeed(long seed){
         seededRandom = new Random();
         seededRandom.setSeed(seed);

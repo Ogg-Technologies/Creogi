@@ -6,6 +6,7 @@ import android.graphics.Paint;
 
 import com.oggtechnologies.creogi.entities.Player;
 import com.oggtechnologies.creogi.tiles.*;
+import com.oggtechnologies.creogi.worldGeneration.WorldGenerator;
 
 
 public class TileMap {
@@ -35,6 +36,10 @@ public class TileMap {
         addTile(new Stone(3, 1));
         addTile(new Stone(5, 5));
         addTile(new Stone(1, 5));
+
+
+        WorldGenerator worldGenerator = new WorldGenerator();
+        worldGenerator.generateWorld();
     }
 
     public void addTile(Tile tile){
@@ -61,6 +66,14 @@ public class TileMap {
                 t.draw(GlobalGameData.mapToScreenX(x), GlobalGameData.mapToScreenY(y), tw, canvas, paint);
             }
         }
+    }
+
+    public int getTileGridWidth(){
+        System.out.println(tileGrid[0]);
+        return tileGrid[0].length;
+    }
+    public int getTileGridHeight(){
+        return tileGrid.length;
     }
 
 }

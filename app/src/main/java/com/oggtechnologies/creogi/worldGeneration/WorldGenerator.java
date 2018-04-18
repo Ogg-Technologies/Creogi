@@ -3,13 +3,13 @@ package com.oggtechnologies.creogi.worldGeneration;
 
 public class WorldGenerator {
 
-    SurfaceOutline surface = new SurfaceOutline();
+    private SurfaceOutline surface = new SurfaceOutline();
 
     public WorldGenerator() {
     }
 
     public void generateWorld() {
-        surface.generate();
+        surface.generate(5, 5);
 
     }
 }

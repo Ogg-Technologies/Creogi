@@ -13,7 +13,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
-
 import com.oggtechnologies.creogi.entities.*;
 
 import java.util.ArrayList;
