@@ -7,6 +7,8 @@ import android.graphics.Paint;
 import com.oggtechnologies.creogi.MainActivity;
 import com.oggtechnologies.creogi.Textures;
 import com.oggtechnologies.creogi.gui.*;
+import com.oggtechnologies.creogi.inventory.ItemSlot;
+import com.oggtechnologies.creogi.items.Item;
 
 import java.util.ArrayList;
 
@@ -27,6 +29,10 @@ public class GUI {
 
     public void addImageButton(String action, float left, float top, float width, float height, String texture){
         buttons.add(new ImageButton(action, left, top, width, height, texture));
+    }
+
+    public void addItemSlotButton(String action, float left, float top, float width, float height, ItemSlot itemSlot){
+        buttons.add(new ItemSlotButton(action, left, top, width, height, itemSlot));
     }
 
     public void draw(Canvas canvas, Paint paint){

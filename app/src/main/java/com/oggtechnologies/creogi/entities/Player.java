@@ -6,11 +6,9 @@ import android.view.MotionEvent;
 
 import com.oggtechnologies.creogi.gui.GUI;
 import com.oggtechnologies.creogi.GlobalGameData;
-import com.oggtechnologies.creogi.Inventory;
-import com.oggtechnologies.creogi.MainActivity;
+import com.oggtechnologies.creogi.inventory.Inventory;
 import com.oggtechnologies.creogi.Textures;
 import com.oggtechnologies.creogi.imageHandler.Animation;
-import com.oggtechnologies.creogi.imageHandler.StaticImage;
 import com.oggtechnologies.creogi.items.ItemTile;
 import com.oggtechnologies.creogi.tiles.Stone;
 
@@ -35,6 +33,8 @@ public class Player extends Mob {
         gui.addButton("jump", 0.23f, 0.835f, 0.65f, 0.15f);
         gui.addButton("use", 0.89f, 0.835f, 0.1f, 0.15f);
         gui.addImageButton("inv", 0.9f, 0.01f, 0.09f, 0.09f, "tile_grass");
+        gui.addItemSlotButton("0", 0.3f, 0.01f, 0.1f, 0.15f, inventory.getItemSlots()[0]);
+
 
         inventory.tryPickUpItem(new ItemTile(new Stone(0, 0)));
 

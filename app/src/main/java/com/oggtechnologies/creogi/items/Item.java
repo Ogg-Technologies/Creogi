@@ -29,6 +29,10 @@ public class Item {
         }
     }
 
+    public String getTextureName(){
+        return image.getTextureName();
+    }
+
     /**
      * Called when this item is equipped and the use key was pressed
      */
