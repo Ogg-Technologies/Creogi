@@ -1,6 +1,7 @@
 package com.oggtechnologies.creogi;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 
 import com.oggtechnologies.creogi.tiles.*;
@@ -23,11 +24,11 @@ public class TileMap {
                 tileGrid[y][x] = new Air(x, y);
             }
         }
-        for (int y = 0; y < 6; y++){
+        /*for (int y = 0; y < 6; y++){   // Un-comment for super flat
             for (int x = 0; x < width; x++){
                 tileGrid[y][x]= new Grass(x, y);
             }
-        }
+        }*/
 
 
     }
@@ -73,7 +74,7 @@ public class TileMap {
                 t.draw(GlobalGameData.mapToScreenX(x), GlobalGameData.mapToScreenY(y), tw, canvas, paint);
 
                 paint.setColor(Color.argb(255, 10, 10, 10));
-                canvas.drawText(String.valueOf(t.getLightLevel()), GlobalGameData.mapToScreenX(x), GlobalGameData.mapToScreenY(y), paint);
+                //canvas.drawText(String.valueOf(t.getLightLevel()), GlobalGameData.mapToScreenX(x), GlobalGameData.mapToScreenY(y), paint);
             }
         }
     }

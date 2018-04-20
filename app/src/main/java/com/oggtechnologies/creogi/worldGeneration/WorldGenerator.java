@@ -5,13 +5,17 @@ public class WorldGenerator {
 
     private SurfaceOutline surface = new SurfaceOutline();
     private FillWorld fillWorld = new FillWorld();
-    public static float[] layerHeights = {0.001f};   // Where the layer begins in the world. {Surface layer}
+    private Smooth smooth = new Smooth();
+
+
+    public static float[] layerHeights = {0.004f};   // Where the layer begins in the world. {Surface layer}
 
     public WorldGenerator() {
     }
 
     public void generateWorld() {
-        surface.generate(800, 1f);
+        surface.generate(550, 0.9f);
         fillWorld.fill(surface.outline);
+        smooth.surface(surface.outline);
     }
 }

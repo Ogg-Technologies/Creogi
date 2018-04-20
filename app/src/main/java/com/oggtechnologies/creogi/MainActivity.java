@@ -69,13 +69,13 @@ public class MainActivity extends Activity {
             //todo Let the user set the seed when creating the world
             GlobalGameData.setSeed(13371337);
 
-            boolean generateWorld = false;
+            boolean generateWorld = true;   // TileMap row 27 for other world type
             if (generateWorld) {
                 WorldGenerator worldGenerator = new WorldGenerator();
                 worldGenerator.generateWorld();
             }
 
-            UserOptions.setZoomLevel(8);
+            UserOptions.setZoomLevel(4);
 
             playing = true;
 
