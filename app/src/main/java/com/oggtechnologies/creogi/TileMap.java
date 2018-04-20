@@ -23,25 +23,14 @@ public class TileMap {
         tileGrid = new Tile[height][width];
         for (int y = 0; y < height; y++){
             for (int x = 0; x < width; x++){
-                addTile(new Air(x, y));
+                tileGrid[y][x] = new Air(x, y);
             }
         }
         for (int y = 0; y < 6; y++){
             for (int x = 0; x < width; x++){
-                addTile(new Grass(x, y));
+                tileGrid[y][x]= new Grass(x, y);
             }
         }
-        addTile(new Stone(3, 0));
-        addTile(new Stone(4, 0));
-        addTile(new Stone(5, 0));
-        addTile(new Stone(6, 0));
-        addTile(new Stone(3, 4));
-        addTile(new Stone(3, 3));
-        addTile(new Stone(3, 2));
-        addTile(new Stone(3, 1));
-        addTile(new Stone(5, 5));
-        addTile(new Stone(1, 5));
-
 
         WorldGenerator worldGenerator = new WorldGenerator();
         worldGenerator.generateWorld();
@@ -50,6 +39,10 @@ public class TileMap {
 
     public void addTile(Tile tile){
         try {
+            Tile lastTile = tileGrid[tile.getY()][tile.getX()];
+            if (lastTile != null) {
+                tileGrid[tile.getY()][tile.getX()].onDestroy();
+            }
             tileGrid[tile.getY()][tile.getX()] = tile;
             tile.onPlace();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -83,6 +76,9 @@ public class TileMap {
                 Tile t = tileGrid[y][x];
                 float tw = GlobalGameData.getTilePixelSize();
                 t.draw(GlobalGameData.mapToScreenX(x), GlobalGameData.mapToScreenY(y), tw, canvas, paint);
+
+                paint.setColor(Color.argb(255, 10, 10, 10));
+                canvas.drawText(String.valueOf(t.getLightLevel()), GlobalGameData.mapToScreenX(x), GlobalGameData.mapToScreenY(y), paint);
             }
         }
     }
