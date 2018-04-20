@@ -1,9 +1,11 @@
 package com.oggtechnologies.creogi.gui;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 
 import com.oggtechnologies.creogi.MainActivity;
+import com.oggtechnologies.creogi.Textures;
 
 public class Button{
     String action;
@@ -53,8 +55,16 @@ public class Button{
         float leftPixel = getLeftPixel();
         float topPixel = getTopPixel();
         float rightPixel = leftPixel+getPixelWidth();
-        float bottomPixel = topPixel*getPixelHeight();
+        float bottomPixel = topPixel+getPixelHeight();
+        paint.setColor(Color.argb(200, 200, 200, 200));
         canvas.drawRect(leftPixel, topPixel, rightPixel, bottomPixel, paint);
+    }
+
+    void drawImage(Canvas canvas, Paint paint, String textureName, float scaleWidth){
+        float centerX = getLeftPixel()+getPixelWidth()/2;
+        float centerY = getTopPixel()+getPixelHeight()/2;
+        float width = Math.min(getPixelWidth(), getPixelHeight());
+        canvas.drawBitmap(Textures.getTexture(textureName, width*scaleWidth), centerX-width/2*(1-scaleWidth/4), centerY-width/2*(1-scaleWidth/4), paint);
     }
 
     float getTopPixel() {
