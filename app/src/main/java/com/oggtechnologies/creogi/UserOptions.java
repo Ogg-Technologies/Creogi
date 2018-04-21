@@ -10,7 +10,7 @@ public class UserOptions {
         return tileScale;
     }
 
-    public static void setZoomLevel(float zoomLevel) {
+    public static void setZoomLevel(float zoomLevel) {   // Less zoomLevel equals more out zoomed
         UserOptions.zoomLevel = zoomLevel;
         tileScale = (float) Math.pow(1.1, zoomLevel);
     }

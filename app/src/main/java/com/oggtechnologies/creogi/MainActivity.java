@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.oggtechnologies.creogi.entities.*;
 import com.oggtechnologies.creogi.inventory.Inventory;
+import com.oggtechnologies.creogi.tiles.Torch;
+import com.oggtechnologies.creogi.worldGeneration.WorldGenerator;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -46,9 +48,9 @@ public class MainActivity extends Activity {
         int fps, ups;
 
         Boolean firstFrame = true;
-        Player player = new Player(3.5f, 20);
         ArrayList<Entity> entities = new ArrayList<>();
-        TileMap tileMap = new TileMap(1600, 20);
+        TileMap tileMap = new TileMap(1024, 1024);
+        Player player = new Player(3.5f, 20);
 
         // If this is not null draw the open inventory to the screen and let onclick control that
         Inventory currentOpenInventory = null;
@@ -67,6 +69,12 @@ public class MainActivity extends Activity {
             //todo Let the user set the seed when creating the world
             GlobalGameData.setSeed(13371337);
             UserOptions.setZoomLevel(7);
+
+            boolean generateWorld = true;   // TileMap row 27 for other world type
+            if (generateWorld) {
+                WorldGenerator worldGenerator = new WorldGenerator();
+                worldGenerator.generateWorld();
+            }
 
             playing = true;
 
