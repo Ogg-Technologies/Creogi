@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.oggtechnologies.creogi.entities.*;
 import com.oggtechnologies.creogi.inventory.Inventory;
+import com.oggtechnologies.creogi.worldGeneration.WorldGenerator;
 
 import java.util.ArrayList;
 import java.util.Random;
