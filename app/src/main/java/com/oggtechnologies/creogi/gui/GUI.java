@@ -35,9 +35,16 @@ public class GUI {
         buttons.add(new ItemSlotButton(action, left, top, width, height, itemSlot));
     }
 
-    public void draw(Canvas canvas, Paint paint){
-        paint.setColor(Color.argb(150, 50, 50, 50));
+    public void draw(Canvas canvas, Paint paint, int hotbarSlotSelected){
         for (Button b : buttons){
+            try {
+                ItemSlotButton itemSlotButton = (ItemSlotButton) b;
+                if (itemSlotButton.action == String.valueOf(hotbarSlotSelected)){
+                    itemSlotButton.drawEquipped(canvas, paint);
+                    continue;
+                }
+            } catch (ClassCastException e){
+            }
             b.draw(canvas, paint);
         }
     }

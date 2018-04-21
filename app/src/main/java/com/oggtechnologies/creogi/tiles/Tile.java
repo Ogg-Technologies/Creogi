@@ -26,6 +26,11 @@ public abstract class Tile {
         this.collsision = collision;
     }
 
+    public void setPos(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
     public void onPlace(){
 
     }

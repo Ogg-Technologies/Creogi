@@ -4,13 +4,18 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 
+import com.oggtechnologies.creogi.MainActivity;
 import com.oggtechnologies.creogi.gui.GUI;
 import com.oggtechnologies.creogi.GlobalGameData;
 import com.oggtechnologies.creogi.inventory.Inventory;
 import com.oggtechnologies.creogi.Textures;
 import com.oggtechnologies.creogi.imageHandler.Animation;
+import com.oggtechnologies.creogi.items.Item;
 import com.oggtechnologies.creogi.items.ItemTile;
+import com.oggtechnologies.creogi.items.Miner;
+import com.oggtechnologies.creogi.tiles.Grass;
 import com.oggtechnologies.creogi.tiles.Stone;
+import com.oggtechnologies.creogi.tiles.Tile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +25,8 @@ public class Player extends Mob {
 
     GUI gui;
     Inventory inventory = new Inventory(15);
+    //The hotbarSlot that is currently selected
+    int slotSelected = 0;
 
     Map<Integer, String> fingersDown = new HashMap<Integer, String>();
 
@@ -33,14 +40,38 @@ public class Player extends Mob {
         gui.addButton("jump", 0.23f, 0.835f, 0.65f, 0.15f);
         gui.addButton("use", 0.89f, 0.835f, 0.1f, 0.15f);
         gui.addImageButton("inv", 0.9f, 0.01f, 0.09f, 0.09f, "tile_grass");
-        gui.addItemSlotButton("0", 0.3f, 0.01f, 0.1f, 0.15f, inventory.getItemSlots()[0]);
+        addHotbar();
 
 
+        inventory.tryPickUpItem(new Miner());
+        inventory.tryPickUpItem(new ItemTile(new Stone(0, 0)));
+        inventory.tryPickUpItem(new ItemTile(new Grass(0, 0)));
+        inventory.tryPickUpItem(new ItemTile(new Grass(0, 0)));
+        inventory.tryPickUpItem(new ItemTile(new Grass(0, 0)));
+        inventory.tryPickUpItem(new ItemTile(new Grass(0, 0)));
+        inventory.tryPickUpItem(new ItemTile(new Stone(0, 0)));
+        inventory.tryPickUpItem(new ItemTile(new Stone(0, 0)));
         inventory.tryPickUpItem(new ItemTile(new Stone(0, 0)));
 
         ArrayList<String> textures = new ArrayList<>();
         textures.add("player");
         animation = new Animation(textures, 10);
+    }
+
+
+    private void addHotbar(){
+        //Adds a hotbar with the 8 first slot of the players inventory
+        int numButtons = 8;
+        float start = 0.15f;
+        float end = 0.85f;
+        float margin = 0.003f;
+        float numMargins = numButtons-1;
+        float buttonWidth = (end-start-numMargins*margin)/numButtons;
+        for (int i = 0; i < numButtons; i++) {
+            float left = start+i*(buttonWidth+margin);
+            gui.addItemSlotButton(String.valueOf(i), left, 0.01f, buttonWidth, 0.0f, inventory.getItemSlots()[i]);
+
+        }
     }
 
     @Override
@@ -54,7 +85,7 @@ public class Player extends Mob {
     }
 
     public void drawGUI(Canvas canvas, Paint paint){
-        gui.draw(canvas, paint);
+        gui.draw(canvas, paint, slotSelected);
     }
 
     /**
@@ -74,6 +105,9 @@ public class Player extends Mob {
                 //A finger was pressed
                 String action = gui.getButtonPressed(screenX, screenY);
                 fingersDown.put(fingerID, action);
+                if (action.matches("\\-?\\d+")){
+                    slotSelected = Integer.parseInt(action);
+                }
                 switch (action){
                     case "left":
                         xVel = -SPEED;
@@ -90,7 +124,10 @@ public class Player extends Mob {
                         //No button was pressed, the map was
                         float mapX = GlobalGameData.screenToMapX(screenX);
                         float mapY = GlobalGameData.screenToMapY(screenY);
-                        GlobalGameData.getTileMap().addTile(new Stone((int) Math.floor(mapX), (int) Math.floor(mapY)));
+//                        GlobalGameData.getTileMap().addTile(new Stone((int) Math.floor(mapX), (int) Math.floor(mapY)));
+                        Item itemSelected = inventory.getItemSlots()[slotSelected].getItem();
+                        itemSelected.mapPressed(this, mapX, mapY);
+
                         break;
                 }
                 break;

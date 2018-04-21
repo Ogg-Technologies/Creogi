@@ -39,11 +39,9 @@ public class Button{
      * @return          True if the given pixel is within this button, else false
      */
     public Boolean wasPressed(float xPixel, float yPixel){
-        float xScreenFrac = xPixel/ MainActivity.getGameViewWidth();
-        float yScreenFrac = yPixel/MainActivity.getGameViewHeight();
-        if (xScreenFrac>left && xScreenFrac<left+width){
+        if (xPixel>getLeftPixel() && xPixel<getLeftPixel()+getPixelWidth()){
             //X coordinate is within the button
-            if (yScreenFrac>top && yScreenFrac<top+height){
+            if (yPixel>getTopPixel() && yPixel<getTopPixel()+getPixelHeight()){
                 //Y coordinate is within the button
                 return true;
             }
@@ -52,13 +50,23 @@ public class Button{
     }
 
     void draw(Canvas canvas, Paint paint){
+        drawColor(canvas, paint, Color.argb(200, 200, 200, 200));
+    }
+
+    void drawColor(Canvas canvas, Paint paint, int color){
+        paint.setColor(color);
+        paintRect(canvas, paint);
+    }
+
+    private void paintRect(Canvas canvas, Paint paint) {
         float leftPixel = getLeftPixel();
         float topPixel = getTopPixel();
         float rightPixel = leftPixel+getPixelWidth();
         float bottomPixel = topPixel+getPixelHeight();
-        paint.setColor(Color.argb(200, 200, 200, 200));
         canvas.drawRect(leftPixel, topPixel, rightPixel, bottomPixel, paint);
     }
+
+
 
     void drawImage(Canvas canvas, Paint paint, String textureName, float scaleWidth){
         float centerX = getLeftPixel()+getPixelWidth()/2;
@@ -76,10 +84,16 @@ public class Button{
     }
 
     float getPixelWidth() {
+        if (width == 0.0f){
+            return height* MainActivity.getGameViewHeight();
+        }
         return width* MainActivity.getGameViewWidth();
     }
 
     float getPixelHeight() {
+        if (height == 0.0f){
+            return width* MainActivity.getGameViewWidth();
+        }
         return height* MainActivity.getGameViewHeight();
     }
 

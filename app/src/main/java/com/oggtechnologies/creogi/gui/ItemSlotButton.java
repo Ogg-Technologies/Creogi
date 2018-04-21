@@ -24,6 +24,16 @@ public class ItemSlotButton extends Button {
     void draw(Canvas canvas, Paint paint) {
         // Starts by drawing the outline of the button and then overlays that with the item
         super.draw(canvas, paint);
+        drawImage(canvas, paint);
+    }
+
+    void drawEquipped(Canvas canvas, Paint paint) {
+        // Draw the outline darker
+        super.drawColor(canvas, paint, Color.argb(220, 100, 100, 100));
+        drawImage(canvas, paint);
+    }
+
+    void drawImage(Canvas canvas, Paint paint){
         Item item = itemSlot.getItem();
         if (item == null){
             return;
