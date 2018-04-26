@@ -9,10 +9,8 @@ import static com.oggtechnologies.creogi.worldGeneration.WorldGenerator.layerHei
 public class FillWorld {
 
     private TileMap tileMap;
-    int[] surfaceOutline;
 
-
-    public FillWorld() {
+    FillWorld() {
         tileMap = GlobalGameData.getTileMap();
     }
 
@@ -21,7 +19,7 @@ public class FillWorld {
      */
     public void fill(int[] surfaceOutline) {
         // Fills the world with stone
-        for (int y = 0; y < (float) tileMap.getTileGridHeight() * layerHeights[0]; y++) {
+        for (int y = 0; y < (float) tileMap.getTileGridHeight() * layerHeights[1]; y++) {
             for (int x = 0; x < tileMap.getTileGridWidth(); x++) {
                 tileMap.addTile(new Stone(x, y));
             }
@@ -29,10 +27,9 @@ public class FillWorld {
 
         // Fills the world with dirt
         for (int x = 0; x < tileMap.getTileGridWidth() - 1; x++) {
-            for (float y = tileMap.getTileGridHeight() * layerHeights[0]; y < surfaceOutline[x]; y++) {
+            for (float y = tileMap.getTileGridHeight() * layerHeights[1]; y < surfaceOutline[x]; y++) {
                 tileMap.addTile((new Dirt(x, (int) Math.floor(y))));
             }
         }
-
     }
 }

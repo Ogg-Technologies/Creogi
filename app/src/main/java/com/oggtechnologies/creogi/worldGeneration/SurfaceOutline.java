@@ -3,9 +3,12 @@ package com.oggtechnologies.creogi.worldGeneration;
 
 import com.oggtechnologies.creogi.GlobalGameData;
 import com.oggtechnologies.creogi.TileMap;
+import com.oggtechnologies.creogi.tiles.Dirt;
 import com.oggtechnologies.creogi.tiles.Grass;
 
 import java.util.Random;
+
+import static com.oggtechnologies.creogi.worldGeneration.WorldGenerator.layerHeights;
 
 public class SurfaceOutline {
 
@@ -15,17 +18,17 @@ public class SurfaceOutline {
     private float[] distanceVector;     // Vectors that are calculated from the distance to the closest grid points
     private TileMap tileMap;
 
-    private double[] gradientVectorRange = {-Math.sqrt(2), Math.sqrt(2)};   // The range in which gradientVectors are initialized
+    private double[] gradientVectorRange = {-Math.sqrt(2) * 2, Math.sqrt(2) * 2, -3.5, 3.5};   // The range in which gradientVectors are initialized
 
 
-    public SurfaceOutline() {
+    SurfaceOutline() {
         tileMap = GlobalGameData.getTileMap();
         outlineLength = tileMap.getTileGridWidth();
         outline = new int[outlineLength];
         gradientVector = new float[outlineLength];
         distanceVector = new float[outlineLength];
-
     }
+
 
     /**
      * @param gridSize      How many distanceVectors there are, how smooth or erratic the world will become (more == smoother)
@@ -35,10 +38,22 @@ public class SurfaceOutline {
         Random rand = GlobalGameData.getSeededRandom();
 
         for (int i = 0; i < outlineLength; i++) {
-            gradientVector[i] = rand.nextFloat() * (float) (gradientVectorRange[1] - gradientVectorRange[0]) + (float) gradientVectorRange[0];
+            short add = 0;
+            if (rand.nextBoolean()) {
+                add = 2;
+            }
+            gradientVector[i] = rand.nextFloat() * (float) (gradientVectorRange[1 + add] - gradientVectorRange[add]) + (float) gradientVectorRange[add];
         }
 
+        int constant = (int) (layerHeights[0] * tileMap.getTileGridHeight());
         float length = outlineLength / (gridSize - 1);
+
+        System.out.println("--------");
+        System.out.println(tileMap.getTileGridHeight());
+        System.out.println(layerHeights[0]);
+        System.out.println(tileMap.getTileGridHeight() * layerHeights[0]);
+        System.out.println("--------");
+
         for (int i = 0; i < outlineLength; i++) {
 
             int jj = 0;
@@ -56,33 +71,49 @@ public class SurfaceOutline {
 
             float totalVector = 0;
 
-            if (i >= 2) {
-                totalVector += gradientVector[jj - 1] + gradientVector[jj - 2];
+            if (i >= 2) {   // Adds together the right vectors
+                totalVector += (gradientVector[jj - 1] + gradientVector[jj - 2]) / 2;
             } else if (i == 1) {
-                totalVector += gradientVector[jj - 1];
+                totalVector += gradientVector[jj - 1] / 2;
             }
             if (i <= outlineLength - 3) {
-                totalVector += gradientVector[jj + 1] + gradientVector[jj + 2];
+                totalVector += (gradientVector[jj + 1] + gradientVector[jj + 2]) / 2;
             } else if (i == outlineLength - 2) {
-                totalVector += gradientVector[jj + 1];
+                totalVector += gradientVector[jj + 1] / 2;
             }
 
             totalVector += gradientVector[jj] + distanceVector[i];
             totalVector *= variation;
 
-            outline[i] = (int) Math.round(fade(totalVector)) + 10;
+            outline[i] = Math.round(totalVector) + constant;
         }
         placeSurface();
     }
 
     private double fade(float value) {
-        return value;//6 * Math.pow(value, 5) - 15 * Math.pow(value, 4) + 10 * Math.pow(value, 3);
+        return 6 * Math.pow(value, 5) - 15 * Math.pow(value, 4) + 10 * Math.pow(value, 3);
     }
 
 
     private void placeSurface() {
         for (int i = 0; i < outlineLength; i++) {
-            tileMap.addTile(new Grass(i, outline[i]));
+            tileMap.addTile(new Dirt(i, outline[i]));
+        }
+    }
+
+
+    /**
+     * Makes the whole surface a layer of grass
+     * @param max   To optimize where the for-loop will begin to check where the tiles begin
+     */
+    public void replaceToGrass(int max) {
+        for (int x = 0; x < outline.length; x++) {
+            for (int y = max + 3; y > 0; y--) {
+                if (tileMap.getTile(x, y).getClass().toString().equals("class com.oggtechnologies.creogi.tiles.Dirt")) {
+                    tileMap.addTile(new Grass(x, y));
+                    break;
+                }
+            }
         }
     }
 }

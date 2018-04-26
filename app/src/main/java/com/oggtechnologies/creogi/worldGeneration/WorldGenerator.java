@@ -8,14 +8,28 @@ public class WorldGenerator {
     private Smooth smooth = new Smooth();
 
 
-    public static float[] layerHeights = {0.004f};   // Where the layer begins in the world. {Surface layer}
+    static float[] layerHeights = {0.7f, 0.69f};   // Where the layer begins in the world. {surface/cavern layer, surface outline}
 
     public WorldGenerator() {
     }
 
     public void generateWorld() {
-        surface.generate(550, 0.9f);
+        surface.generate(1000, 0.8f);
+
+        int min = 1024;
+        int max = 0;
+        for (int i = 0; i < surface.outline.length; i++) {   // Finds the tallest mountain and lowest valley
+            if (surface.outline[i] < min) {
+                min = surface.outline[i];
+            } else if (surface.outline[i] > max) {
+                max = surface.outline[i];
+            }
+        }
+        System.out.println("----- Min: " + min + " Max: " + max);
+
         fillWorld.fill(surface.outline);
-        smooth.surface(surface.outline);
+        smooth.surface(surface.outline, min, max, 5);
+
+        surface.replaceToGrass(max);
     }
 }

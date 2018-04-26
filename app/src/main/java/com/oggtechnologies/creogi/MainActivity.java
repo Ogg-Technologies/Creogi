@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
         Boolean firstFrame = true;
         ArrayList<Entity> entities = new ArrayList<>();
         TileMap tileMap = new TileMap(1024, 1024);
-        Player player = new Player(3.5f, 20);
+        Player player = new Player(3.5f, 800);
 
         // If this is not null draw the open inventory to the screen and let onclick control that
         Inventory currentOpenInventory = null;
