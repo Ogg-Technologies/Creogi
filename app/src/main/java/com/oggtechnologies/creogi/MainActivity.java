@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
             GlobalGameData.setTileMap(tileMap);
             //todo Let the user set the seed when creating the world
             GlobalGameData.setSeed(13371337);
-            UserOptions.setZoomLevel(7);
+            UserOptions.setZoomLevel(1);
 
             boolean generateWorld = true;   // TileMap row 27 for other world type
             if (generateWorld) {

@@ -5,7 +5,8 @@ public class WorldGenerator {
 
     private SurfaceOutline surface = new SurfaceOutline();
     private FillWorld fillWorld = new FillWorld();
-    private Smooth smooth = new Smooth();
+    public static Smooth smooth = new Smooth();
+    private CaveGenerator cave = new CaveGenerator();
 
 
     static float[] layerHeights = {0.7f, 0.69f};   // Where the layer begins in the world. {surface/cavern layer, surface outline}
@@ -25,11 +26,11 @@ public class WorldGenerator {
                 max = surface.outline[i];
             }
         }
-        System.out.println("----- Min: " + min + " Max: " + max);
 
         fillWorld.fill(surface.outline);
         smooth.surface(surface.outline, min, max, 5);
-
         surface.replaceToGrass(max);
+
+        cave.generate(2);
     }
 }
